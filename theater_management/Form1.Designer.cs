@@ -47,42 +47,43 @@
             this.종료ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1034, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(1174, 40);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // 영화상영관리ToolStripMenuItem
             // 
             this.영화상영관리ToolStripMenuItem.Name = "영화상영관리ToolStripMenuItem";
-            this.영화상영관리ToolStripMenuItem.Size = new System.Drawing.Size(196, 36);
+            this.영화상영관리ToolStripMenuItem.Size = new System.Drawing.Size(196, 44);
             this.영화상영관리ToolStripMenuItem.Text = "영화/상영 관리";
             this.영화상영관리ToolStripMenuItem.Click += new System.EventHandler(this.영화상영관리ToolStripMenuItem_Click);
             // 
             // 고객관리ToolStripMenuItem
             // 
             this.고객관리ToolStripMenuItem.Name = "고객관리ToolStripMenuItem";
-            this.고객관리ToolStripMenuItem.Size = new System.Drawing.Size(138, 36);
+            this.고객관리ToolStripMenuItem.Size = new System.Drawing.Size(138, 44);
             this.고객관리ToolStripMenuItem.Text = "고객 관리";
             this.고객관리ToolStripMenuItem.Click += new System.EventHandler(this.고객관리ToolStripMenuItem_Click);
             // 
             // 매출정보ToolStripMenuItem
             // 
             this.매출정보ToolStripMenuItem.Name = "매출정보ToolStripMenuItem";
-            this.매출정보ToolStripMenuItem.Size = new System.Drawing.Size(138, 36);
+            this.매출정보ToolStripMenuItem.Size = new System.Drawing.Size(138, 44);
             this.매출정보ToolStripMenuItem.Text = "매출 정보";
             this.매출정보ToolStripMenuItem.Click += new System.EventHandler(this.매출정보ToolStripMenuItem_Click);
             // 
             // 종료ToolStripMenuItem
             // 
             this.종료ToolStripMenuItem.Name = "종료ToolStripMenuItem";
-            this.종료ToolStripMenuItem.Size = new System.Drawing.Size(82, 36);
+            this.종료ToolStripMenuItem.Size = new System.Drawing.Size(82, 44);
             this.종료ToolStripMenuItem.Text = "종료";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 554);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1174, 649);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;

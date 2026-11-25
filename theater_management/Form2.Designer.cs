@@ -332,6 +332,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1739, 883);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -339,6 +341,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
             this.Name = "Form2";
             this.Text = "main";
             this.Load += new System.EventHandler(this.Form2_Load);

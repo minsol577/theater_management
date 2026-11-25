@@ -28,14 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnReserveOrCancel = new System.Windows.Forms.Button();
-            this.txtMovieName = new System.Windows.Forms.TextBox();
-            this.txtRunTime = new System.Windows.Forms.TextBox();
-            this.txtMovieId = new System.Windows.Forms.TextBox();
+            this.txtPw = new System.Windows.Forms.TextBox();
+            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.txtCustId = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -43,79 +38,37 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dtpRelease = new System.Windows.Forms.DateTimePicker();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.cmbAgeRating = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dgvCustomer = new System.Windows.Forms.DataGridView();
+            this.txtCustName = new System.Windows.Forms.TextBox();
+            this.dtpBirth = new System.Windows.Forms.DateTimePicker();
+            this.txtPoint = new System.Windows.Forms.TextBox();
+            this.cmbVipGrade = new System.Windows.Forms.ComboBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).BeginInit();
             this.SuspendLayout();
             // 
-            // button4
+            // txtPw
             // 
-            this.button4.Location = new System.Drawing.Point(1190, 738);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(81, 35);
-            this.button4.TabIndex = 43;
-            this.button4.Text = "저장";
-            this.button4.UseVisualStyleBackColor = true;
+            this.txtPw.Location = new System.Drawing.Point(1244, 178);
+            this.txtPw.Name = "txtPw";
+            this.txtPw.Size = new System.Drawing.Size(285, 35);
+            this.txtPw.TabIndex = 38;
             // 
-            // button3
+            // txtPhone
             // 
-            this.button3.Location = new System.Drawing.Point(1276, 738);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 35);
-            this.button3.TabIndex = 42;
-            this.button3.Text = "수정";
-            this.button3.UseVisualStyleBackColor = true;
+            this.txtPhone.Location = new System.Drawing.Point(1244, 356);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(285, 35);
+            this.txtPhone.TabIndex = 37;
             // 
-            // button2
+            // txtCustId
             // 
-            this.button2.Location = new System.Drawing.Point(1362, 738);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 35);
-            this.button2.TabIndex = 41;
-            this.button2.Text = "삭제";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1448, 738);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 35);
-            this.button1.TabIndex = 40;
-            this.button1.Text = "취소";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // btnReserveOrCancel
-            // 
-            this.btnReserveOrCancel.Location = new System.Drawing.Point(1104, 738);
-            this.btnReserveOrCancel.Name = "btnReserveOrCancel";
-            this.btnReserveOrCancel.Size = new System.Drawing.Size(81, 35);
-            this.btnReserveOrCancel.TabIndex = 39;
-            this.btnReserveOrCancel.Text = "추가";
-            this.btnReserveOrCancel.UseVisualStyleBackColor = true;
-            // 
-            // txtMovieName
-            // 
-            this.txtMovieName.Location = new System.Drawing.Point(1244, 178);
-            this.txtMovieName.Name = "txtMovieName";
-            this.txtMovieName.Size = new System.Drawing.Size(285, 35);
-            this.txtMovieName.TabIndex = 38;
-            // 
-            // txtRunTime
-            // 
-            this.txtRunTime.Location = new System.Drawing.Point(1244, 356);
-            this.txtRunTime.Name = "txtRunTime";
-            this.txtRunTime.Size = new System.Drawing.Size(285, 35);
-            this.txtRunTime.TabIndex = 37;
-            // 
-            // txtMovieId
-            // 
-            this.txtMovieId.Location = new System.Drawing.Point(1244, 89);
-            this.txtMovieId.Name = "txtMovieId";
-            this.txtMovieId.Size = new System.Drawing.Size(285, 35);
-            this.txtMovieId.TabIndex = 35;
+            this.txtCustId.Location = new System.Drawing.Point(1244, 89);
+            this.txtCustId.Name = "txtCustId";
+            this.txtCustId.Size = new System.Drawing.Size(285, 35);
+            this.txtCustId.TabIndex = 35;
             // 
             // label7
             // 
@@ -187,63 +140,93 @@
             this.label1.TabIndex = 28;
             this.label1.Text = "고객ID";
             // 
-            // dataGridView1
+            // dgvCustomer
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(41, 57);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 82;
-            this.dataGridView1.RowTemplate.Height = 37;
-            this.dataGridView1.Size = new System.Drawing.Size(1029, 787);
-            this.dataGridView1.TabIndex = 27;
+            this.dgvCustomer.AllowUserToAddRows = false;
+            this.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomer.Location = new System.Drawing.Point(41, 57);
+            this.dgvCustomer.Name = "dgvCustomer";
+            this.dgvCustomer.RowHeadersWidth = 82;
+            this.dgvCustomer.RowTemplate.Height = 37;
+            this.dgvCustomer.Size = new System.Drawing.Size(1029, 701);
+            this.dgvCustomer.TabIndex = 27;
             // 
-            // textBox1
+            // txtCustName
             // 
-            this.textBox1.Location = new System.Drawing.Point(1244, 267);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(285, 35);
-            this.textBox1.TabIndex = 47;
+            this.txtCustName.Location = new System.Drawing.Point(1244, 267);
+            this.txtCustName.Name = "txtCustName";
+            this.txtCustName.Size = new System.Drawing.Size(285, 35);
+            this.txtCustName.TabIndex = 47;
             // 
-            // dtpRelease
+            // dtpBirth
             // 
-            this.dtpRelease.Location = new System.Drawing.Point(1244, 456);
-            this.dtpRelease.Name = "dtpRelease";
-            this.dtpRelease.Size = new System.Drawing.Size(285, 35);
-            this.dtpRelease.TabIndex = 46;
+            this.dtpBirth.Location = new System.Drawing.Point(1244, 456);
+            this.dtpBirth.Name = "dtpBirth";
+            this.dtpBirth.Size = new System.Drawing.Size(285, 35);
+            this.dtpBirth.TabIndex = 46;
             // 
-            // textBox2
+            // txtPoint
             // 
-            this.textBox2.Location = new System.Drawing.Point(1244, 534);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(285, 35);
-            this.textBox2.TabIndex = 48;
+            this.txtPoint.Location = new System.Drawing.Point(1244, 534);
+            this.txtPoint.Name = "txtPoint";
+            this.txtPoint.Size = new System.Drawing.Size(285, 35);
+            this.txtPoint.TabIndex = 48;
             // 
-            // cmbAgeRating
+            // cmbVipGrade
             // 
-            this.cmbAgeRating.FormattingEnabled = true;
-            this.cmbAgeRating.Location = new System.Drawing.Point(1244, 626);
-            this.cmbAgeRating.Name = "cmbAgeRating";
-            this.cmbAgeRating.Size = new System.Drawing.Size(285, 32);
-            this.cmbAgeRating.TabIndex = 49;
+            this.cmbVipGrade.FormattingEnabled = true;
+            this.cmbVipGrade.Items.AddRange(new object[] {
+            "일반",
+            "VIP",
+            "VVIP"});
+            this.cmbVipGrade.Location = new System.Drawing.Point(1244, 626);
+            this.cmbVipGrade.Name = "cmbVipGrade";
+            this.cmbVipGrade.Size = new System.Drawing.Size(285, 32);
+            this.cmbVipGrade.TabIndex = 49;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(1214, 713);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(81, 45);
+            this.btnUpdate.TabIndex = 52;
+            this.btnUpdate.Text = "수정";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(1331, 713);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(81, 45);
+            this.btnDelete.TabIndex = 51;
+            this.btnDelete.Text = "삭제";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(1106, 713);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(81, 45);
+            this.btnAdd.TabIndex = 50;
+            this.btnAdd.Text = "추가";
+            this.btnAdd.UseVisualStyleBackColor = true;
             // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1774, 929);
-            this.Controls.Add(this.cmbAgeRating);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.dtpRelease);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnReserveOrCancel);
-            this.Controls.Add(this.txtMovieName);
-            this.Controls.Add(this.txtRunTime);
-            this.Controls.Add(this.txtMovieId);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1574, 829);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.cmbVipGrade);
+            this.Controls.Add(this.txtPoint);
+            this.Controls.Add(this.txtCustName);
+            this.Controls.Add(this.dtpBirth);
+            this.Controls.Add(this.txtPw);
+            this.Controls.Add(this.txtPhone);
+            this.Controls.Add(this.txtCustId);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -251,24 +234,19 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvCustomer);
             this.Name = "Form4";
             this.Text = "customer";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnReserveOrCancel;
-        private System.Windows.Forms.TextBox txtMovieName;
-        private System.Windows.Forms.TextBox txtRunTime;
-        private System.Windows.Forms.TextBox txtMovieId;
+        private System.Windows.Forms.TextBox txtPw;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.TextBox txtCustId;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -276,10 +254,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DateTimePicker dtpRelease;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ComboBox cmbAgeRating;
+        private System.Windows.Forms.DataGridView dgvCustomer;
+        private System.Windows.Forms.TextBox txtCustName;
+        private System.Windows.Forms.DateTimePicker dtpBirth;
+        private System.Windows.Forms.TextBox txtPoint;
+        private System.Windows.Forms.ComboBox cmbVipGrade;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

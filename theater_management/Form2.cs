@@ -147,8 +147,15 @@ namespace theater_management
 
             if (rdoReserve.Checked)
             {
-                // 다음 단계에서 만들 Form6(좌석 선택 및 예매 모달창) 호출 위치
-                MessageBox.Show($"스케줄 [{inputId}]번 좌석 선택 창(Form6)을 엽니다.");
+                using (Form6 popup = new Form6(int.Parse(inputId)))
+                {
+                    if (popup.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadScheduleList("", "");
+                        LoadReservationList();
+                        LoadVipCustomerList();
+                    }
+                }
             }
             else
             {
