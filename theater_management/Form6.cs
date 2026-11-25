@@ -19,7 +19,7 @@ namespace theater_management
         private string ageRating;
         private string startTime;
         private bool isCustVerified = false;
-        private int custAge = 0
+        private int custAge = 0;
         public Form6(int scheduleId)
         {
             InitializeComponent();
