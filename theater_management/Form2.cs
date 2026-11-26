@@ -16,6 +16,7 @@ namespace theater_management
         public Form2()
         {
             InitializeComponent();
+            this.FormClosed += (s, ev) => db.DB_Close();
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -160,13 +161,39 @@ namespace theater_management
             else
             {
                 // 예매 취소 처리
-                string sql = $"UPDATE reservation SET reservation_status = '취소' WHERE reservation_id = {inputId}";
-                int res = db.DB_Execute(sql);
-                if (res > 0)
+                // 1) 예매 정보 조회 (고객ID, 결제금액)
+                string sqlInfo = $"SELECT customer_id, total_payment FROM reservation WHERE reservation_id = {inputId}";
+                DataSet dsInfo = db.DB_Select(sqlInfo, "res");
+                if (!dsInfo.Tables.Contains("res") || dsInfo.Tables["res"].Rows.Count == 0)
                 {
-                    MessageBox.Show("예매가 취소되었습니다.");
+                    MessageBox.Show("해당 예매번호를 찾을 수 없습니다.");
+                    return;
+                }
+                DataRow resRow = dsInfo.Tables["res"].Rows[0];
+                int custId    = Convert.ToInt32(resRow["customer_id"]);
+                int earnedPt  = (int)(Convert.ToInt32(resRow["total_payment"]) * 0.05);
+
+                // 2) 트랜잭션: 예매 상태 취소 + 적립 포인트 차감 + 등급 재산정
+                var sqls = new System.Collections.Generic.List<string>
+                {
+                    $"UPDATE reservation SET reservation_status = '취소' WHERE reservation_id = {inputId}",
+                    $@"UPDATE customer
+                       SET point = GREATEST(0, point - {earnedPt}),
+                           vip_grade = CASE
+                               WHEN GREATEST(0, point - {earnedPt}) >= 3000 THEN 'VIP'
+                               WHEN GREATEST(0, point - {earnedPt}) >= 2000 THEN 'GOLD'
+                               WHEN GREATEST(0, point - {earnedPt}) >= 1000 THEN 'SILVER'
+                               ELSE '일반'
+                           END
+                       WHERE customer_id = {custId}"
+                };
+
+                if (db.DB_ExecuteTransaction(sqls))
+                {
+                    MessageBox.Show($"예매가 취소되었습니다. (차감 포인트: {earnedPt}P)");
                     LoadScheduleList("", "");
                     LoadReservationList();
+                    LoadVipCustomerList();
                 }
             }
         }

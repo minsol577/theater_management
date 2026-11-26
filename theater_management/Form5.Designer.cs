@@ -94,6 +94,7 @@
             this.Controls.Add(this.lblTotalMovies);
             this.Name = "Form5";
             this.Text = "settlement_info";
+            this.Load += new System.EventHandler(this.Form5_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMethodSales)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

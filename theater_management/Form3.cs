@@ -238,25 +238,144 @@ namespace theater_management
             txtScheduleId.ReadOnly = true;
         }
 
+        private bool TryNormalizeTimeRange(string startText, string endText, out TimeSpan start, out TimeSpan end, out string errorMessage)
+        {
+            start = TimeSpan.Zero;
+            end = TimeSpan.Zero;
+            errorMessage = null;
+
+            string[] formats = { @"hh\:mm", @"h\:mm" };
+            if (!TimeSpan.TryParseExact(startText, formats, CultureInfo.InvariantCulture, out start) ||
+                !TimeSpan.TryParseExact(endText, formats, CultureInfo.InvariantCulture, out end))
+            {
+                errorMessage = "시작시간과 종료시간은 HH:mm 형식으로 입력하세요. (예: 09:30, 14:00)";
+                return false;
+            }
+
+            if (end == start)
+            {
+                errorMessage = "시작시간과 종료시간이 같을 수 없습니다.";
+                return false;
+            }
+
+            if (end < start)
+            {
+                // 20시 이후 시작 ~ 익일 06시 이전 종료는 심야 상영(자정 넘김)으로 허용
+                if (start.Hours >= 20 && end.Hours < 6)
+                {
+                    end = end.Add(TimeSpan.FromHours(24));
+                }
+                else
+                {
+                    errorMessage = "종료시간은 시작시간보다 늦어야 합니다.";
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // 같은 상영관의 겹치는 상영 시간대 존재 여부 검사 (자정 넘김 심야 상영 포함)
+        private bool HasScheduleConflict(int theaterId, DateTime screeningDate, TimeSpan start, TimeSpan end, int? excludeScheduleId, out string errorMessage)
+        {
+            errorMessage = null;
+
+            DateTime reqStart = screeningDate.Date.Add(start);
+            DateTime reqEnd = screeningDate.Date.Add(end);
+
+            string prevDateStr = screeningDate.AddDays(-1).ToString("yyyy-MM-dd");
+            string nextDateStr = screeningDate.AddDays(1).ToString("yyyy-MM-dd");
+            string excludeClause = excludeScheduleId.HasValue ? $" AND s.schedule_id <> {excludeScheduleId.Value}" : "";
+
+            string sql = $@"
+                SELECT s.schedule_id,
+                       m.movie_name,
+                       TO_CHAR(s.screening_date, 'YYYY-MM-DD') AS screening_date,
+                       s.screening_round,
+                       s.start_time,
+                       s.end_time
+                FROM screening_schedule s
+                JOIN movie m ON s.movie_id = m.movie_id
+                WHERE s.theater_id = {theaterId}
+                  AND TRUNC(s.screening_date) BETWEEN TO_DATE('{prevDateStr}', 'YYYY-MM-DD') AND TO_DATE('{nextDateStr}', 'YYYY-MM-DD')
+                  {excludeClause}";
+
+            DataSet ds = db.DB_Select(sql, "conflict");
+            if (!ds.Tables.Contains("conflict"))
+            {
+                errorMessage = "기존 상영 스케줄 중복 여부를 확인하지 못했습니다.";
+                return true;
+            }
+
+            string[] formats = { @"hh\:mm", @"h\:mm" };
+            foreach (DataRow row in ds.Tables["conflict"].Rows)
+            {
+                string exDateStr = row["screening_date"]?.ToString();
+                string exStartStr = row["start_time"]?.ToString()?.Trim();
+                string exEndStr = row["end_time"]?.ToString()?.Trim();
+
+                if (!DateTime.TryParse(exDateStr, out DateTime exDate) ||
+                    !TimeSpan.TryParseExact(exStartStr, formats, CultureInfo.InvariantCulture, out TimeSpan exStart) ||
+                    !TimeSpan.TryParseExact(exEndStr, formats, CultureInfo.InvariantCulture, out TimeSpan exEnd))
+                {
+                    continue;
+                }
+
+                if (exEnd <= exStart)
+                    exEnd = exEnd.Add(TimeSpan.FromHours(24));
+
+                DateTime existStart = exDate.Date.Add(exStart);
+                DateTime existEnd = exDate.Date.Add(exEnd);
+
+                // 두 구간 [reqStart, reqEnd)와 [existStart, existEnd) 겹침 판정
+                if (reqStart < existEnd && existStart < reqEnd)
+                {
+                    errorMessage =
+                        "같은 상영관에 겹치는 시간대의 상영 스케줄이 이미 존재합니다.\n\n" +
+                        $"- 기존 스케줄ID: {row["schedule_id"]}\n" +
+                        $"- 영화제목: {row["movie_name"]}\n" +
+                        $"- 상영일시: {exDateStr} {exStartStr} ~ {exEndStr} ({row["screening_round"]}회차)";
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void btnSchedAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtScheduleId.Text) ||
+            if (!int.TryParse(txtScheduleId.Text.Trim(), out int scheduleId) ||
                 cmbMovie.SelectedValue == null ||
                 cmbTheater.SelectedValue == null ||
                 !int.TryParse(txtRound.Text.Trim(), out int round) ||
                 string.IsNullOrWhiteSpace(txtStartTime.Text) ||
                 string.IsNullOrWhiteSpace(txtEndTime.Text))
             {
-                MessageBox.Show("스케줄 필수 항목(스케줄ID, 영화, 상영관, 회차, 시작/종료시간)을 입력하세요.");
+                MessageBox.Show("스케줄 필수 항목(스케줄ID 숫자, 영화, 상영관, 회차 숫자, 시작/종료시간)을 입력하세요.");
+                return;
+            }
+
+            if (!TryNormalizeTimeRange(txtStartTime.Text.Trim(), txtEndTime.Text.Trim(), out TimeSpan start, out TimeSpan end, out string timeErr))
+            {
+                MessageBox.Show(timeErr, "시간 입력 오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int theaterId = Convert.ToInt32(cmbTheater.SelectedValue);
+            if (HasScheduleConflict(theaterId, dtpScreeningDate.Value, start, end, null, out string conflictMsg))
+            {
+                MessageBox.Show(conflictMsg, "상영 시간 중복", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string adminVal = cmbAdmin.SelectedValue != null ? cmbAdmin.SelectedValue.ToString() : "NULL";
             string sDateStr = dtpScreeningDate.Value.ToString("yyyy-MM-dd");
+            string startStr = $"{start.Hours:D2}:{start.Minutes:D2}";
+            string endStr = $"{end.Hours:D2}:{end.Minutes:D2}";
 
             string sql = $@"
                 INSERT INTO screening_schedule (schedule_id, movie_id, theater_id, admin_id, screening_date, screening_round, start_time, end_time)
-                VALUES ({txtScheduleId.Text.Trim()}, {cmbMovie.SelectedValue}, {cmbTheater.SelectedValue}, {adminVal}, TO_DATE('{sDateStr}', 'YYYY-MM-DD'), {round}, '{txtStartTime.Text.Trim()}', '{txtEndTime.Text.Trim()}')";
+                VALUES ({scheduleId}, {cmbMovie.SelectedValue}, {theaterId}, {adminVal}, TO_DATE('{sDateStr}', 'YYYY-MM-DD'), {round}, '{startStr}', '{endStr}')";
 
             if (db.DB_Execute(sql) > 0)
             {
@@ -268,25 +387,45 @@ namespace theater_management
 
         private void btnSchedUpdate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtScheduleId.Text) || !int.TryParse(txtRound.Text.Trim(), out int round))
+            if (!int.TryParse(txtScheduleId.Text.Trim(), out int scheduleId) ||
+                cmbMovie.SelectedValue == null ||
+                cmbTheater.SelectedValue == null ||
+                !int.TryParse(txtRound.Text.Trim(), out int round) ||
+                string.IsNullOrWhiteSpace(txtStartTime.Text) ||
+                string.IsNullOrWhiteSpace(txtEndTime.Text))
             {
-                MessageBox.Show("수정할 스케줄을 선택하고 회차를 숫자로 입력하세요.");
+                MessageBox.Show("수정할 스케줄을 선택하고 필수 항목(회차 숫자, 시작/종료시간)을 입력하세요.");
+                return;
+            }
+
+            if (!TryNormalizeTimeRange(txtStartTime.Text.Trim(), txtEndTime.Text.Trim(), out TimeSpan start, out TimeSpan end, out string timeErr))
+            {
+                MessageBox.Show(timeErr, "시간 입력 오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int theaterId = Convert.ToInt32(cmbTheater.SelectedValue);
+            if (HasScheduleConflict(theaterId, dtpScreeningDate.Value, start, end, scheduleId, out string conflictMsg))
+            {
+                MessageBox.Show(conflictMsg, "상영 시간 중복", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string adminVal = cmbAdmin.SelectedValue != null ? cmbAdmin.SelectedValue.ToString() : "NULL";
             string sDateStr = dtpScreeningDate.Value.ToString("yyyy-MM-dd");
+            string startStr = $"{start.Hours:D2}:{start.Minutes:D2}";
+            string endStr = $"{end.Hours:D2}:{end.Minutes:D2}";
 
             string sql = $@"
                 UPDATE screening_schedule
                 SET movie_id = {cmbMovie.SelectedValue},
-                    theater_id = {cmbTheater.SelectedValue},
+                    theater_id = {theaterId},
                     admin_id = {adminVal},
                     screening_date = TO_DATE('{sDateStr}', 'YYYY-MM-DD'),
                     screening_round = {round},
-                    start_time = '{txtStartTime.Text.Trim()}',
-                    end_time = '{txtEndTime.Text.Trim()}'
-                WHERE schedule_id = {txtScheduleId.Text.Trim()}";
+                    start_time = '{startStr}',
+                    end_time = '{endStr}'
+                WHERE schedule_id = {scheduleId}";
 
             if (db.DB_Execute(sql) > 0)
             {
@@ -330,6 +469,7 @@ namespace theater_management
 
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
         {
+            db.DB_Close();
             Form2 mainForm = Application.OpenForms.OfType<Form2>().FirstOrDefault();
             mainForm?.LoadScheduleList("", "");
         }

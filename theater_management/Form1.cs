@@ -64,6 +64,11 @@ namespace theater_management
                 settlementForm = new Form5 { MdiParent = this };
                 settlementForm.Show();
             }
+            else
+            {
+                settlementForm.LoadSalesInfo();
+                settlementForm.Activate();
+            }
         }
 
         private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)

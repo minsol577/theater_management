@@ -245,6 +245,7 @@ namespace theater_management
 
         private void Form4_FormClosed(object sender, FormClosedEventArgs e)
         {
+            db.DB_Close();
             Form2 mainForm = Application.OpenForms.OfType<Form2>().FirstOrDefault();
             mainForm?.LoadVipCustomerList();
         }

@@ -19,11 +19,13 @@ namespace theater_management
         private string ageRating;
         private string startTime;
         private bool isCustVerified = false;
+        private int verifiedCustId = 0;
         private int custAge = 0;
         public Form6(int scheduleId)
         {
             InitializeComponent();
             this.scheduleId = scheduleId;
+            this.FormClosed += (s, ev) => db.DB_Close();
         }
 
         private void Form6_Load(object sender, EventArgs e)
@@ -40,7 +42,7 @@ namespace theater_management
                 WHERE s.schedule_id = {scheduleId}";
 
             DataSet ds = db.DB_Select(sql, "info");
-            if (ds.Tables["info"].Rows.Count == 0)
+            if (!ds.Tables.Contains("info") || ds.Tables["info"].Rows.Count == 0)
             {
                 MessageBox.Show("존재하지 않는 스케줄 번호입니다.");
                 this.Close();
@@ -81,22 +83,40 @@ namespace theater_management
         private void btnCheckCust_Click(object sender, EventArgs e)
         {
             string cid = txtCustId.Text.Trim();
-            if (string.IsNullOrEmpty(cid)) return;
+            if (string.IsNullOrEmpty(cid))
+            {
+                MessageBox.Show("고객 ID 또는 고객명을 입력하세요.");
+                return;
+            }
 
-            string sql = $"SELECT customer_name, vip_grade, point, TRUNC(MONTHS_BETWEEN(SYSDATE, birth_date)/12) AS age FROM customer WHERE customer_id = {cid}";
+            string whereClause = int.TryParse(cid, out int parsedCustId)
+                ? $"customer_id = {parsedCustId}"
+                : $"customer_name = '{cid.Replace("'", "''")}'";
+
+            string sql = $"SELECT customer_id, customer_name, vip_grade, point, TRUNC(MONTHS_BETWEEN(SYSDATE, birth_date)/12) AS age FROM customer WHERE {whereClause}";
             DataSet ds = db.DB_Select(sql, "cust");
 
-            if (ds.Tables["cust"].Rows.Count == 0)
+            if (!ds.Tables.Contains("cust") || ds.Tables["cust"].Rows.Count == 0)
             {
-                MessageBox.Show("등록되지 않은 고객 ID입니다.");
+                MessageBox.Show("등록되지 않은 고객입니다. (고객 ID 또는 정확한 고객명을 입력하세요)");
                 isCustVerified = false;
+                verifiedCustId = 0;
+                return;
+            }
+
+            if (ds.Tables["cust"].Rows.Count > 1)
+            {
+                MessageBox.Show("동명이인이 여러 명 있습니다. 고객 ID(숫자)로 조회해 주세요.");
+                isCustVerified = false;
+                verifiedCustId = 0;
                 return;
             }
 
             DataRow r = ds.Tables["cust"].Rows[0];
+            verifiedCustId = Convert.ToInt32(r["customer_id"]);
             custAge = Convert.ToInt32(r["age"]);
             isCustVerified = true;
-            lblCustInfo.Text = $"{r["customer_name"]}님 (만 {custAge}세 / {r["vip_grade"]} / {r["point"]}P)";
+            lblCustInfo.Text = $"[{verifiedCustId}] {r["customer_name"]}님 (만 {custAge}세 / {r["vip_grade"]} / {r["point"]}P)";
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -120,7 +140,9 @@ namespace theater_management
             }
 
             // [기획서 요구사항 검증 2] 22시 이후 심야 상영 청소년 제한
-            int startHour = int.Parse(startTime.Split(':')[0]);
+            int startHour = 0;
+            if (startTime.Contains(":") && !int.TryParse(startTime.Split(':')[0], out startHour))
+                startHour = 0;
             if (startHour >= 22 && (custAge < 19 || rdoYouth.Checked))
             {
                 MessageBox.Show("22시 이후 심야 상영은 청소년 예매가 제한됩니다.");
@@ -131,54 +153,56 @@ namespace theater_management
             string audienceType = rdoAdult.Checked ? "성인" : (rdoYouth.Checked ? "청소년" : "경로");
             int price = rdoAdult.Checked ? 14000 : (rdoYouth.Checked ? 11000 : 7000);
             int seatId = Convert.ToInt32(cmbSeat.SelectedValue);
-            int custId = int.Parse(txtCustId.Text.Trim());
+            int custId = verifiedCustId;
             string payMethod = cmbPayMethod.SelectedItem.ToString();
+            int earnPoint = (int)(price * 0.05);
 
-            // 1) 예매 테이블 INSERT
-            string sqlRes = $@"
-                INSERT INTO reservation VALUES (
+            // 모든 INSERT/UPDATE를 하나의 트랜잭션으로 처리 (중간 실패 시 전체 롤백)
+            var sqls = new System.Collections.Generic.List<string>
+            {
+                // 1) 예매 테이블 INSERT
+                $@"INSERT INTO reservation VALUES (
                     (SELECT NVL(MAX(reservation_id), 1000) + 1 FROM reservation),
                     {custId}, {scheduleId}, SYSDATE, {price}, '예매완료'
-                )";
-            db.DB_Execute(sqlRes);
+                )",
 
-            // 2) 예매상세좌석 INSERT
-            string sqlSeat = $@"
-                INSERT INTO reservation_seat VALUES (
+                // 2) 예매상세좌석 INSERT
+                $@"INSERT INTO reservation_seat VALUES (
                     (SELECT MAX(reservation_id) FROM reservation),
                     {theaterId}, {seatId}, '{audienceType}', {price}
-                )";
-            db.DB_Execute(sqlSeat);
+                )",
 
-            // 3) 결제 테이블 INSERT
-            string sqlPay = $@"
-                INSERT INTO payment VALUES (
+                // 3) 결제 테이블 INSERT
+                $@"INSERT INTO payment VALUES (
                     (SELECT NVL(MAX(payment_id), 5000) + 1 FROM payment),
                     (SELECT MAX(reservation_id) FROM reservation),
                     '{payMethod}', {price}, SYSDATE, 'APP-' || TO_CHAR(SYSDATE, 'HH24MISS')
-                )";
-            db.DB_Execute(sqlPay);
+                )",
 
-            // 4) 고객관람이력 INSERT 및 포인트 적립(5%) + VIP 등급 자동 갱신
-            int earnPoint = (int)(price * 0.05);
-            db.DB_Execute($@"
-                INSERT INTO customer_history VALUES (
+                // 4) 고객 관람 이력 INSERT
+                $@"INSERT INTO customer_history VALUES (
                     (SELECT NVL(MAX(history_id), 0) + 1 FROM customer_history),
                     {custId}, {movieId}, {scheduleId}, SYSDATE, {price}
-                )");
+                )",
 
-            db.DB_Execute($@"
-                UPDATE customer
-                SET point = point + {earnPoint},
-                    vip_grade = CASE
-                        WHEN (SELECT NVL(SUM(accumulated_payment),0) FROM customer_history WHERE customer_id = {custId}) >= 50000 THEN 'VIP'
-                        ELSE vip_grade
-                    END
-                WHERE customer_id = {custId}");
+                // 5) 포인트 적립(5%) + VIP 등급 자동 갱신 (Form4 기준과 통일)
+                $@"UPDATE customer
+                   SET point = point + {earnPoint},
+                       vip_grade = CASE
+                           WHEN point + {earnPoint} >= 3000 THEN 'VIP'
+                           WHEN point + {earnPoint} >= 2000 THEN 'GOLD'
+                           WHEN point + {earnPoint} >= 1000 THEN 'SILVER'
+                           ELSE '일반'
+                       END
+                   WHERE customer_id = {custId}"
+            };
 
-            MessageBox.Show($"예매 및 결제가 완료되었습니다! (적립 포인트: {earnPoint}P)");
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (db.DB_ExecuteTransaction(sqls))
+            {
+                MessageBox.Show($"예매 및 결제가 완료되었습니다! (적립 포인트: {earnPoint}P)");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e) => this.Close();
