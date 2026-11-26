@@ -163,5 +163,10 @@ namespace theater_management
                 }
             }
         }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

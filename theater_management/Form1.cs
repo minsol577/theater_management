@@ -31,18 +31,30 @@ namespace theater_management
 
         private void 영화상영관리ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("영화 및 상영 스케줄 관리 화면(Form3) 연결 예정");
             if (movieForm == null || movieForm.IsDisposed)
             {
                 movieForm = new Form3();
                 movieForm.MdiParent = this;
                 movieForm.Show();
             }
+            else
+            {
+                movieForm.Activate();
+            }
         }
 
         private void 고객관리ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("고객 및 VIP 관리 화면(Form4) 연결 예정");
+            if (customerForm == null || customerForm.IsDisposed)
+            {
+                customerForm = new Form4();
+                customerForm.MdiParent = this;
+                customerForm.Show();
+            }
+            else
+            {
+                customerForm.Activate();
+            }
         }
 
         private void 매출정보ToolStripMenuItem_Click(object sender, EventArgs e)

@@ -2,15 +2,8 @@
 {
     partial class Form4
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,264 +15,308 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnReserveOrCancel = new System.Windows.Forms.Button();
-            this.txtMovieName = new System.Windows.Forms.TextBox();
-            this.txtRunTime = new System.Windows.Forms.TextBox();
-            this.txtMovieId = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dtpRelease = new System.Windows.Forms.DateTimePicker();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.cmbAgeRating = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.txtSearchName = new System.Windows.Forms.TextBox();
+            this.cmbFilterGrade = new System.Windows.Forms.ComboBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.lblTotalCount = new System.Windows.Forms.Label();
+            this.dgvCustomer = new System.Windows.Forms.DataGridView();
+
+            this.groupBoxHistory = new System.Windows.Forms.GroupBox();
+            this.dgvHistory = new System.Windows.Forms.DataGridView();
+
+            this.groupBoxDetail = new System.Windows.Forms.GroupBox();
+            this.lblCustId = new System.Windows.Forms.Label();
+            this.txtCustId = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.lblCustName = new System.Windows.Forms.Label();
+            this.txtCustName = new System.Windows.Forms.TextBox();
+            this.lblPhone = new System.Windows.Forms.Label();
+            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.lblBirthDate = new System.Windows.Forms.Label();
+            this.dtpBirthDate = new System.Windows.Forms.DateTimePicker();
+            this.lblVipGrade = new System.Windows.Forms.Label();
+            this.cmbVipGrade = new System.Windows.Forms.ComboBox();
+            this.lblPoint = new System.Windows.Forms.Label();
+            this.txtPoint = new System.Windows.Forms.TextBox();
+
+            this.groupBoxPoint = new System.Windows.Forms.GroupBox();
+            this.lblPointDelta = new System.Windows.Forms.Label();
+            this.txtPointDelta = new System.Windows.Forms.TextBox();
+            this.btnAddPoint = new System.Windows.Forms.Button();
+            this.btnUsePoint = new System.Windows.Forms.Button();
+
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+
+            this.groupBoxSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).BeginInit();
+            this.groupBoxHistory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
+            this.groupBoxDetail.SuspendLayout();
+            this.groupBoxPoint.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(1190, 738);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(81, 35);
-            this.button4.TabIndex = 43;
-            this.button4.Text = "저장";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(1276, 738);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 35);
-            this.button3.TabIndex = 42;
-            this.button3.Text = "수정";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1362, 738);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 35);
-            this.button2.TabIndex = 41;
-            this.button2.Text = "삭제";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1448, 738);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 35);
-            this.button1.TabIndex = 40;
-            this.button1.Text = "취소";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // btnReserveOrCancel
-            // 
-            this.btnReserveOrCancel.Location = new System.Drawing.Point(1104, 738);
-            this.btnReserveOrCancel.Name = "btnReserveOrCancel";
-            this.btnReserveOrCancel.Size = new System.Drawing.Size(81, 35);
-            this.btnReserveOrCancel.TabIndex = 39;
-            this.btnReserveOrCancel.Text = "추가";
-            this.btnReserveOrCancel.UseVisualStyleBackColor = true;
-            // 
-            // txtMovieName
-            // 
-            this.txtMovieName.Location = new System.Drawing.Point(1244, 178);
-            this.txtMovieName.Name = "txtMovieName";
-            this.txtMovieName.Size = new System.Drawing.Size(285, 35);
-            this.txtMovieName.TabIndex = 38;
-            // 
-            // txtRunTime
-            // 
-            this.txtRunTime.Location = new System.Drawing.Point(1244, 356);
-            this.txtRunTime.Name = "txtRunTime";
-            this.txtRunTime.Size = new System.Drawing.Size(285, 35);
-            this.txtRunTime.TabIndex = 37;
-            // 
-            // txtMovieId
-            // 
-            this.txtMovieId.Location = new System.Drawing.Point(1244, 89);
-            this.txtMovieId.Name = "txtMovieId";
-            this.txtMovieId.Size = new System.Drawing.Size(285, 35);
-            this.txtMovieId.TabIndex = 35;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(1102, 545);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 24);
-            this.label7.TabIndex = 34;
-            this.label7.Text = "포인트";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(1102, 634);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(91, 24);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "VIP등급";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(1102, 189);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 24);
-            this.label5.TabIndex = 32;
-            this.label5.Text = "비밀번호";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(1102, 278);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 24);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "고객명";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(1102, 367);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 24);
-            this.label3.TabIndex = 30;
-            this.label3.Text = "연락처";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(1102, 456);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 24);
-            this.label2.TabIndex = 29;
-            this.label2.Text = "생년월일";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(1102, 100);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 24);
-            this.label1.TabIndex = 28;
-            this.label1.Text = "고객ID";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(41, 57);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 82;
-            this.dataGridView1.RowTemplate.Height = 37;
-            this.dataGridView1.Size = new System.Drawing.Size(1029, 787);
-            this.dataGridView1.TabIndex = 27;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(1244, 267);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(285, 35);
-            this.textBox1.TabIndex = 47;
-            // 
-            // dtpRelease
-            // 
-            this.dtpRelease.Location = new System.Drawing.Point(1244, 456);
-            this.dtpRelease.Name = "dtpRelease";
-            this.dtpRelease.Size = new System.Drawing.Size(285, 35);
-            this.dtpRelease.TabIndex = 46;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(1244, 534);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(285, 35);
-            this.textBox2.TabIndex = 48;
-            // 
-            // cmbAgeRating
-            // 
-            this.cmbAgeRating.FormattingEnabled = true;
-            this.cmbAgeRating.Location = new System.Drawing.Point(1244, 626);
-            this.cmbAgeRating.Name = "cmbAgeRating";
-            this.cmbAgeRating.Size = new System.Drawing.Size(285, 32);
-            this.cmbAgeRating.TabIndex = 49;
-            // 
+
+            // groupBoxSearch
+            this.groupBoxSearch.Controls.Add(this.lblTotalCount);
+            this.groupBoxSearch.Controls.Add(this.btnReset);
+            this.groupBoxSearch.Controls.Add(this.btnSearch);
+            this.groupBoxSearch.Controls.Add(this.cmbFilterGrade);
+            this.groupBoxSearch.Controls.Add(this.txtSearchName);
+            this.groupBoxSearch.Controls.Add(this.lblSearch);
+            this.groupBoxSearch.Controls.Add(this.dgvCustomer);
+            this.groupBoxSearch.Location = new System.Drawing.Point(20, 20);
+            this.groupBoxSearch.Size = new System.Drawing.Size(960, 480);
+            this.groupBoxSearch.TabIndex = 0;
+            this.groupBoxSearch.TabStop = false;
+            this.groupBoxSearch.Text = "고객 및 VIP 목록 조회";
+
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Location = new System.Drawing.Point(20, 45);
+            this.lblSearch.Text = "고객명 / 등급";
+
+            this.txtSearchName.Location = new System.Drawing.Point(165, 40);
+            this.txtSearchName.Size = new System.Drawing.Size(220, 30);
+
+            this.cmbFilterGrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFilterGrade.Items.AddRange(new object[] { "전체", "일반", "SILVER", "GOLD", "VIP" });
+            this.cmbFilterGrade.Location = new System.Drawing.Point(400, 40);
+            this.cmbFilterGrade.Size = new System.Drawing.Size(150, 32);
+
+            this.btnSearch.Location = new System.Drawing.Point(570, 36);
+            this.btnSearch.Size = new System.Drawing.Size(100, 38);
+            this.btnSearch.Text = "검색";
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+
+            this.btnReset.Location = new System.Drawing.Point(680, 36);
+            this.btnReset.Size = new System.Drawing.Size(100, 38);
+            this.btnReset.Text = "초기화";
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+
+            this.lblTotalCount.AutoSize = true;
+            this.lblTotalCount.ForeColor = System.Drawing.Color.Red;
+            this.lblTotalCount.Location = new System.Drawing.Point(840, 45);
+            this.lblTotalCount.Text = "총 0명";
+
+            this.dgvCustomer.AllowUserToAddRows = false;
+            this.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomer.Location = new System.Drawing.Point(20, 90);
+            this.dgvCustomer.ReadOnly = true;
+            this.dgvCustomer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCustomer.Size = new System.Drawing.Size(920, 370);
+            this.dgvCustomer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomer_CellClick);
+
+            // groupBoxHistory (선택 고객 관람 이력 조회)
+            this.groupBoxHistory.Controls.Add(this.dgvHistory);
+            this.groupBoxHistory.Location = new System.Drawing.Point(20, 515);
+            this.groupBoxHistory.Size = new System.Drawing.Size(960, 290);
+            this.groupBoxHistory.TabIndex = 1;
+            this.groupBoxHistory.TabStop = false;
+            this.groupBoxHistory.Text = "선택 고객 관람 이력 (customer_history)";
+
+            this.dgvHistory.AllowUserToAddRows = false;
+            this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHistory.Location = new System.Drawing.Point(20, 35);
+            this.dgvHistory.ReadOnly = true;
+            this.dgvHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvHistory.Size = new System.Drawing.Size(920, 235);
+
+            // groupBoxDetail
+            this.groupBoxDetail.Controls.Add(this.btnClear);
+            this.groupBoxDetail.Controls.Add(this.btnDelete);
+            this.groupBoxDetail.Controls.Add(this.btnUpdate);
+            this.groupBoxDetail.Controls.Add(this.btnAdd);
+            this.groupBoxDetail.Controls.Add(this.groupBoxPoint);
+            this.groupBoxDetail.Controls.Add(this.txtPoint);
+            this.groupBoxDetail.Controls.Add(this.lblPoint);
+            this.groupBoxDetail.Controls.Add(this.cmbVipGrade);
+            this.groupBoxDetail.Controls.Add(this.lblVipGrade);
+            this.groupBoxDetail.Controls.Add(this.dtpBirthDate);
+            this.groupBoxDetail.Controls.Add(this.lblBirthDate);
+            this.groupBoxDetail.Controls.Add(this.txtPhone);
+            this.groupBoxDetail.Controls.Add(this.lblPhone);
+            this.groupBoxDetail.Controls.Add(this.txtCustName);
+            this.groupBoxDetail.Controls.Add(this.lblCustName);
+            this.groupBoxDetail.Controls.Add(this.txtPassword);
+            this.groupBoxDetail.Controls.Add(this.lblPassword);
+            this.groupBoxDetail.Controls.Add(this.txtCustId);
+            this.groupBoxDetail.Controls.Add(this.lblCustId);
+            this.groupBoxDetail.Location = new System.Drawing.Point(1000, 20);
+            this.groupBoxDetail.Size = new System.Drawing.Size(640, 785);
+            this.groupBoxDetail.TabIndex = 2;
+            this.groupBoxDetail.TabStop = false;
+            this.groupBoxDetail.Text = "고객 상세 정보 및 등급 관리 (customer)";
+
+            this.lblCustId.AutoSize = true;
+            this.lblCustId.Location = new System.Drawing.Point(30, 55);
+            this.lblCustId.Text = "고객 ID*";
+
+            this.txtCustId.Location = new System.Drawing.Point(175, 50);
+            this.txtCustId.Size = new System.Drawing.Size(220, 30);
+
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(30, 105);
+            this.lblPassword.Text = "비밀번호*";
+
+            this.txtPassword.Location = new System.Drawing.Point(175, 100);
+            this.txtPassword.Size = new System.Drawing.Size(220, 30);
+
+            this.lblCustName.AutoSize = true;
+            this.lblCustName.Location = new System.Drawing.Point(30, 155);
+            this.lblCustName.Text = "고객명*";
+
+            this.txtCustName.Location = new System.Drawing.Point(175, 150);
+            this.txtCustName.Size = new System.Drawing.Size(280, 30);
+
+            this.lblPhone.AutoSize = true;
+            this.lblPhone.Location = new System.Drawing.Point(30, 205);
+            this.lblPhone.Text = "연락처";
+
+            this.txtPhone.Location = new System.Drawing.Point(175, 200);
+            this.txtPhone.Size = new System.Drawing.Size(280, 30);
+
+            this.lblBirthDate.AutoSize = true;
+            this.lblBirthDate.Location = new System.Drawing.Point(30, 255);
+            this.lblBirthDate.Text = "생년월일";
+
+            this.dtpBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpBirthDate.Location = new System.Drawing.Point(175, 250);
+            this.dtpBirthDate.Size = new System.Drawing.Size(200, 30);
+
+            this.lblVipGrade.AutoSize = true;
+            this.lblVipGrade.Location = new System.Drawing.Point(30, 305);
+            this.lblVipGrade.Text = "VIP 등급";
+
+            this.cmbVipGrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVipGrade.Items.AddRange(new object[] { "일반", "SILVER", "GOLD", "VIP" });
+            this.cmbVipGrade.Location = new System.Drawing.Point(175, 300);
+            this.cmbVipGrade.Size = new System.Drawing.Size(220, 32);
+
+            this.lblPoint.AutoSize = true;
+            this.lblPoint.Location = new System.Drawing.Point(30, 355);
+            this.lblPoint.Text = "보유 포인트";
+
+            this.txtPoint.Location = new System.Drawing.Point(175, 350);
+            this.txtPoint.Size = new System.Drawing.Size(220, 30);
+            this.txtPoint.Text = "0";
+
+            // groupBoxPoint
+            this.groupBoxPoint.Controls.Add(this.btnUsePoint);
+            this.groupBoxPoint.Controls.Add(this.btnAddPoint);
+            this.groupBoxPoint.Controls.Add(this.txtPointDelta);
+            this.groupBoxPoint.Controls.Add(this.lblPointDelta);
+            this.groupBoxPoint.Location = new System.Drawing.Point(30, 420);
+            this.groupBoxPoint.Size = new System.Drawing.Size(580, 130);
+            this.groupBoxPoint.TabStop = false;
+            this.groupBoxPoint.Text = "포인트 적립 / 차감 (포인트 기준 등급 자동 반영)";
+
+            this.lblPointDelta.AutoSize = true;
+            this.lblPointDelta.Location = new System.Drawing.Point(20, 55);
+            this.lblPointDelta.Text = "변동 포인트";
+
+            this.txtPointDelta.Location = new System.Drawing.Point(155, 50);
+            this.txtPointDelta.Size = new System.Drawing.Size(180, 30);
+
+            this.btnAddPoint.Location = new System.Drawing.Point(355, 45);
+            this.btnAddPoint.Size = new System.Drawing.Size(95, 40);
+            this.btnAddPoint.Text = "적립(+)";
+            this.btnAddPoint.Click += new System.EventHandler(this.btnAddPoint_Click);
+
+            this.btnUsePoint.Location = new System.Drawing.Point(460, 45);
+            this.btnUsePoint.Size = new System.Drawing.Size(95, 40);
+            this.btnUsePoint.Text = "차감(-)";
+            this.btnUsePoint.Click += new System.EventHandler(this.btnUsePoint_Click);
+
+            // CRUD 버튼
+            this.btnAdd.Location = new System.Drawing.Point(30, 620);
+            this.btnAdd.Size = new System.Drawing.Size(130, 50);
+            this.btnAdd.Text = "신규등록";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+
+            this.btnUpdate.Location = new System.Drawing.Point(180, 620);
+            this.btnUpdate.Size = new System.Drawing.Size(130, 50);
+            this.btnUpdate.Text = "정보수정";
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+
+            this.btnDelete.Location = new System.Drawing.Point(330, 620);
+            this.btnDelete.Size = new System.Drawing.Size(130, 50);
+            this.btnDelete.Text = "회원삭제";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+
+            this.btnClear.Location = new System.Drawing.Point(480, 620);
+            this.btnClear.Size = new System.Drawing.Size(130, 50);
+            this.btnClear.Text = "초기화";
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+
             // Form4
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1774, 929);
-            this.Controls.Add(this.cmbAgeRating);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.dtpRelease);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnReserveOrCancel);
-            this.Controls.Add(this.txtMovieName);
-            this.Controls.Add(this.txtRunTime);
-            this.Controls.Add(this.txtMovieId);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(1665, 830);
+            this.Controls.Add(this.groupBoxDetail);
+            this.Controls.Add(this.groupBoxHistory);
+            this.Controls.Add(this.groupBoxSearch);
             this.Name = "Form4";
-            this.Text = "customer";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Text = "고객 및 VIP 관리";
+            this.Load += new System.EventHandler(this.Form4_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form4_FormClosed);
+            this.groupBoxSearch.ResumeLayout(false);
+            this.groupBoxSearch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).EndInit();
+            this.groupBoxHistory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
+            this.groupBoxDetail.ResumeLayout(false);
+            this.groupBoxDetail.PerformLayout();
+            this.groupBoxPoint.ResumeLayout(false);
+            this.groupBoxPoint.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
-
         }
 
         #endregion
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnReserveOrCancel;
-        private System.Windows.Forms.TextBox txtMovieName;
-        private System.Windows.Forms.TextBox txtRunTime;
-        private System.Windows.Forms.TextBox txtMovieId;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DateTimePicker dtpRelease;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ComboBox cmbAgeRating;
+
+        private System.Windows.Forms.GroupBox groupBoxSearch;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.TextBox txtSearchName;
+        private System.Windows.Forms.ComboBox cmbFilterGrade;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Label lblTotalCount;
+        private System.Windows.Forms.DataGridView dgvCustomer;
+
+        private System.Windows.Forms.GroupBox groupBoxHistory;
+        private System.Windows.Forms.DataGridView dgvHistory;
+
+        private System.Windows.Forms.GroupBox groupBoxDetail;
+        private System.Windows.Forms.Label lblCustId;
+        private System.Windows.Forms.TextBox txtCustId;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.Label lblCustName;
+        private System.Windows.Forms.TextBox txtCustName;
+        private System.Windows.Forms.Label lblPhone;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.Label lblBirthDate;
+        private System.Windows.Forms.DateTimePicker dtpBirthDate;
+        private System.Windows.Forms.Label lblVipGrade;
+        private System.Windows.Forms.ComboBox cmbVipGrade;
+        private System.Windows.Forms.Label lblPoint;
+        private System.Windows.Forms.TextBox txtPoint;
+
+        private System.Windows.Forms.GroupBox groupBoxPoint;
+        private System.Windows.Forms.Label lblPointDelta;
+        private System.Windows.Forms.TextBox txtPointDelta;
+        private System.Windows.Forms.Button btnAddPoint;
+        private System.Windows.Forms.Button btnUsePoint;
+
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnClear;
     }
 }
