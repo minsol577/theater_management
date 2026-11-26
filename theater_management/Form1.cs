@@ -59,7 +59,11 @@ namespace theater_management
 
         private void 매출정보ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("일일 매출 및 정산 정보 화면(Form5) 연결 예정");
+            if (settlementForm == null || settlementForm.IsDisposed)
+            {
+                settlementForm = new Form5 { MdiParent = this };
+                settlementForm.Show();
+            }
         }
 
         private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
